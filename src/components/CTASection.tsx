@@ -36,7 +36,13 @@ export default function CTASection() {
                 Start Your Free Trial
                 <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10"
+              onClick={() => {
+                const pricingSection = document.getElementById('contact');
+                if (pricingSection) {
+                  pricingSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}>
                 Schedule a Demo
               </Button>
             </div>

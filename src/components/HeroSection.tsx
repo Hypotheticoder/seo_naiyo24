@@ -1,35 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react';  
 import { ArrowRight, BarChart2, Search, TrendingUp, X } from 'lucide-react';
 import Button from './ui/Button';
 import Container from './ui/Container';
 
 export default function HeroSection() {
-  const [showTrialForm, setShowTrialForm] = useState(false);
   const [showDemoModal, setShowDemoModal] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    companyUrl: ''
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    setShowTrialForm(false);
-  };
 
   return (
-    <section className="pt-28 pb-16 md:pt-36 md:pb-24 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden relative">
+    <section className="pt-28 pb-16 md:pt-36 md:pb-24 bg-gradient-to-b from-gray-50 to-white overflow-hidden relative">
       {/* Background elements with your pulse animation */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
         <div className="absolute top-20 right-20 w-64 h-64 bg-blue-100 rounded-full filter blur-[100px] opacity-20 animate-pulse"></div>
@@ -57,7 +35,15 @@ export default function HeroSection() {
               <Button 
                 size="lg" 
                 className="group hover:shadow-lg transition-shadow"
-                onClick={() => setShowTrialForm(true)}
+                onClick={() => {
+                  const pricingSection = document.getElementById('pricing');
+                  if (pricingSection) {
+                    pricingSection.scrollIntoView({ 
+                      behavior: 'smooth',
+                      block: 'start'
+                    });
+                  }
+                }}
               >
                 Start Your Free Trial
                 <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
@@ -152,101 +138,6 @@ export default function HeroSection() {
         </div>
       </Container>
 
-      {/* Free Trial Form Modal */}
-      {showTrialForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
-          <div className="bg-white rounded-xl max-w-md w-full p-8 relative transform transition-all duration-300 animate-scale-in">
-            <button 
-              onClick={() => setShowTrialForm(false)}
-              className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-100 transition-colors"
-            >
-              <X size={20} className="text-gray-500" />
-            </button>
-            
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Start Your Free Trial</h2>
-            
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
-                  Company Name
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="companyUrl" className="block text-sm font-medium text-gray-700 mb-1">
-                  Company URL
-                </label>
-                <input
-                  type="url"
-                  id="companyUrl"
-                  name="companyUrl"
-                  value={formData.companyUrl || ''}
-                  onChange={handleInputChange}
-                  placeholder="https://example.com"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                />
-              </div>
-              
-              <Button type="submit" className="w-full mt-6 hover:shadow-lg transition-shadow">
-                Start Free Trial
-              </Button>
-            </form>
-          </div>
-        </div>
-      )}
-
       {/* Demo Modal */}
       {showDemoModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
@@ -298,7 +189,13 @@ export default function HeroSection() {
                 <Button 
                   onClick={() => {
                     setShowDemoModal(false);
-                    setShowTrialForm(true);
+                    const pricingSection = document.getElementById('pricing');
+                    if (pricingSection) {
+                      pricingSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }
                   }}
                   className="hover:shadow-lg transition-shadow"
                 >

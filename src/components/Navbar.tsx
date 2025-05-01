@@ -65,6 +65,7 @@ const Navbar: React.FC = () => {
     { label: 'Pricing', href: '#pricing' },
     { label: 'Testimonials', href: '#testimonials' },
     { label: 'FAQ', href: '#faq' },
+    { label: 'About Us', href: '#about' },
   ];
 
   useEffect(() => {
@@ -84,14 +85,14 @@ const Navbar: React.FC = () => {
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-sans ${
         isScrolled 
-          ? 'bg-white/90 backdrop-blur-md shadow-soft-xl dark:bg-blue-950/90 dark:shadow-dark-xl' 
+          ? 'bg-white/90 backdrop-blur-md shadow-md' 
           : 'bg-transparent'
       }`}
     >
       <Container>
         <div className="flex items-center justify-between h-16 md:h-20">
           <div className="flex items-center">
-            <span className="text-2xl font-bold text-blue-600 dark:text-teal-400">
+            <span className="text-2xl font-bold text-blue-600">
               Naiyo24
             </span>
           </div>
@@ -101,7 +102,7 @@ const Navbar: React.FC = () => {
               <a 
                 key={item.label}
                 href={item.href}
-                className="text-blue-900 hover:text-blue-600 dark:text-teal-100 dark:hover:text-teal-300 font-medium transition-colors duration-200"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
               >
                 {item.label}
               </a>
@@ -109,20 +110,24 @@ const Navbar: React.FC = () => {
           </nav>
           
           <div className="hidden md:flex items-center space-x-4">
-            <Button className="bg-blue-600 hover:bg-blue-700 dark:bg-teal-500 dark:hover:bg-teal-600" onClick={() => {
-              const pricingSection = document.getElementById('pricing');
-              if (pricingSection) {
-                pricingSection.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}>
+            <Button 
+              variant="default"
+              size="md"
+              onClick={() => {
+                const pricingSection = document.getElementById('pricing');
+                if (pricingSection) {
+                  pricingSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
               Get Started
             </Button>
           </div>
           
-          <div className="md:hidden flex items-center space-x-3">
+          <div className="md:hidden flex items-center">
             <button
               onClick={toggleMenu}
-              className="p-2 rounded-md text-blue-800 hover:bg-blue-100 dark:text-teal-300 dark:hover:bg-blue-900 focus:outline-none"
+              className="p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -132,25 +137,31 @@ const Navbar: React.FC = () => {
       </Container>
       
       {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-blue-950 shadow-soft-xl dark:shadow-dark-xl">
+        <div className="md:hidden bg-white shadow-lg">
           <Container>
             <nav className="flex flex-col py-4 space-y-4">
               {navItems.map((item) => (
                 <a 
                   key={item.label}
                   href={item.href}
-                  className="text-blue-800 hover:text-blue-600 dark:text-teal-100 dark:hover:text-teal-300 font-medium py-2 transition-colors duration-200"
+                  className="text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
-              <Button className="bg-blue-600 hover:bg-blue-700 dark:bg-teal-500 dark:hover:bg-teal-600 mt-4" onClick={() => {
-                const pricingSection = document.getElementById('pricing');
-                if (pricingSection) {
-                  pricingSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}>
+              <Button 
+                variant="default"
+                size="md"
+                fullWidth
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  const pricingSection = document.getElementById('pricing');
+                  if (pricingSection) {
+                    pricingSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 Get Started
               </Button>
             </nav>

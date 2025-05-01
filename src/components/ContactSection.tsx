@@ -17,10 +17,30 @@ export default function ContactSection() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Contact form submitted:', formData);
-    setFormData({ name: '', email: '', message: '' });
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+      console.log('Contact submission successful:', data);
+      alert('Your message has been sent successfully!');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('There was an error submitting your form. Please try again.');
+    }
   };
 
   return (

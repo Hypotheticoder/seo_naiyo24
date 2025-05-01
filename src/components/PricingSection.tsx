@@ -145,18 +145,28 @@ export default function PricingSection() {
     if (!validateForm()) {
       return;
     }
-
+  
     setIsSubmitting(true);
-
+  
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      console.log('Form submitted:', {
-        ...formData,
-        plan: selectedPlan,
-        period: period
+      const response = await fetch('http://localhost:5000/api/trial', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          plan: selectedPlan,
+          period: period
+        }),
       });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+      console.log('Submission successful:', data);
       setSubmitSuccess(true);
       
       // Reset form after successful submission
@@ -173,6 +183,7 @@ export default function PricingSection() {
       }, 2000);
     } catch (error) {
       console.error('Submission error:', error);
+      alert('There was an error submitting your form. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -227,7 +238,7 @@ export default function PricingSection() {
         {plans.map((plan, index) => (
           <div 
             key={index} 
-            className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl ${
+            className={`relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl ${
               plan.popular ? 'md:scale-105 md:-mt-4 md:mb-4 ring-2 ring-blue-500' : ''
             }`}
           >

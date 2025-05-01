@@ -8,6 +8,7 @@ import FAQSection from './components/FAQSection';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 import ContactSection from './components/ContactSection';
+import AboutSection from './components/AboutSection';
 
 function App() {
   // Update document title for SEO
@@ -35,6 +36,7 @@ function App() {
         <PricingSection />
         <TestimonialsSection />
         <FAQSection />
+        <AboutSection />
         <ContactSection />
         <CTASection />
       </main>
