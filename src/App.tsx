@@ -9,6 +9,8 @@ import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 import ContactSection from './components/ContactSection';
 import AboutSection from './components/AboutSection';
+import '@fontsource/jaldi/400.css';
+import '@fontsource/jaldi/700.css';
 
 function App() {
   // Update document title for SEO

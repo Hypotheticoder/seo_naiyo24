@@ -92,9 +92,16 @@ const Navbar: React.FC = () => {
       <Container>
         <div className="flex items-center justify-between h-16 md:h-20">
           <div className="flex items-center">
-            <span className="text-2xl font-bold text-blue-600">
-              Naiyo24
-            </span>
+            {/* Updated logo section with image and Jaldi font */}
+            <div className="flex items-center space-x-2">
+              <img 
+                src="src/images/logo.png"  
+                className="h-8 w-auto rounded-xl" 
+              />
+              <span className="text-2xl font-bold text-black-600 font-jaldi">
+                Naiyo24
+              </span>
+            </div>
           </div>
           
           <nav className="hidden md:flex items-center space-x-8">
